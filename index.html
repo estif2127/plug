@@ -178,8 +178,7 @@
       <div>
         <h1>Hub + Sub Post Generator</h1>
         <div class="sub">
-          Uses your real query modifiers (mega, reddit, leaks, links) for tags.
-          Model-name tags are intentionally avoided.
+          Uses your real query modifiers (mega, reddit, leaks, links). Words like “archive” are removed.
         </div>
       </div>
       <div class="tabs" id="tabs">
@@ -293,9 +292,9 @@
               • Main folder link / download button<br><br>
 
               <b>More Model Content</b><br>
-              • Model – Reddit Leak Collection (sub page)<br>
-              • Model – Instagram Archive (sub page)<br>
-              • Model – TikTok Archive (sub page)<br><br>
+              • Model – Reddit Leaks (sub page)<br>
+              • Model – Instagram Leaks (sub page)<br>
+              • Model – TikTok Leaks (sub page)<br><br>
 
               <b>Related Models</b><br>
               • 3 related models (random or same niche)
@@ -326,83 +325,100 @@
     // YouTube embed (separate copy field)
     const YOUTUBE_EMBED = `<iframe width="560" height="315" src="https://www.youtube.com/embed/3hGbw6hm4gw?si=_rZ2rqZ2tWHd1bHT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
 
-    // Tags based on your actual query modifiers:
-    // mega / folder / reddit / leak(s) / link(s) / free
+    // Updated tags: removed "archive" and "content-pack" since your query data is driven by:
+    // mega / reddit / leak(s) / link(s) / folder / free
     const TAGS = {
-      HUB_DEFAULT: ["mega-folder", "archive", "leaked-content", "content-pack"],
-      HUB_MINIMAL: ["mega-folder", "archive"],
-      HUB_LINKS:   ["mega-folder", "archive", "mega-links", "folder-links"],
+      HUB_DEFAULT: ["mega-folder", "onlyfans-leaks", "leaked-content", "mega-links"],
+      HUB_MINIMAL: ["mega-folder", "onlyfans-leaks"],
+      HUB_LINKS:   ["mega-folder", "mega-links", "folder-links", "onlyfans-leaks"],
 
-      REDDIT_DEFAULT: ["reddit-leaks", "archive", "leaked-content"],
-      REDDIT_MINIMAL: ["reddit-leaks", "archive"],
-      REDDIT_LINKS:   ["reddit-leaks", "archive", "mega-links"],
+      REDDIT_DEFAULT: ["reddit-leaks", "onlyfans-leaks", "leaked-content"],
+      REDDIT_MINIMAL: ["reddit-leaks", "onlyfans-leaks"],
+      REDDIT_LINKS:   ["reddit-leaks", "mega-links", "onlyfans-leaks"],
 
-      IG_DEFAULT: ["instagram-archive", "archive"],
-      IG_MINIMAL: ["instagram-archive", "archive"],
-      IG_LINKS:   ["instagram-archive", "archive", "folder-links"],
+      // If you don't want IG/TikTok tags at all, you can swap these to ["onlyfans-leaks"] only.
+      IG_DEFAULT: ["instagram", "onlyfans-leaks"],
+      IG_MINIMAL: ["instagram", "onlyfans-leaks"],
+      IG_LINKS:   ["instagram", "folder-links", "onlyfans-leaks"],
 
-      TIKTOK_DEFAULT: ["tiktok-archive", "archive"],
-      TIKTOK_MINIMAL: ["tiktok-archive", "archive"],
-      TIKTOK_LINKS:   ["tiktok-archive", "archive", "folder-links"]
+      TIKTOK_DEFAULT: ["tiktok", "onlyfans-leaks"],
+      TIKTOK_MINIMAL: ["tiktok", "onlyfans-leaks"],
+      TIKTOK_LINKS:   ["tiktok", "folder-links", "onlyfans-leaks"]
     };
 
     const MODES = {
       hub: {
         label: "Hub",
         postTitle: (name) => `${name}`,
-        metaTitle: (name, year) => `${name} OnlyFans Mega Folder ${year} – Full Archive & Leaked Content`,
-        metaDesc: (name) => `Browse the ${name} OnlyFans leaks, mega folder archives, and updated content collections. Access the full ${name} archive and latest downloads.`,
+
+        // SHORT + matches your query data + works with plugin appending site name
+        metaTitle: (name, year) => `${name} OnlyFans Leaks – Mega Folder ${year}`,
+
+        metaDesc: (name) =>
+          `Browse the ${name} OnlyFans leaks, mega folder links, and updated content collections. Find ${name} leaked content, Reddit leaks, and mega links.`,
+
         tags: (preset) => {
           if (preset === "minimal") return TAGS.HUB_MINIMAL;
           if (preset === "links")   return TAGS.HUB_LINKS;
           return TAGS.HUB_DEFAULT;
         },
-        body: (name, year) => `${name} OnlyFans leaks, mega folder archives, and updated content collections are available below. Browse the full ${name} archive and download the latest packs.
 
-This page includes ${name} mega folders, Reddit leak collections, and additional archived content updated for ${year}.`
+        // Removed "archive/archived" wording
+        body: (name, year) => `${name} OnlyFans leaks, mega folder links, and updated content collections are available below. Browse the full ${name} leaks and download the latest packs.
+
+This page includes ${name} mega folders, Reddit leak collections, and additional leaked content updated for ${year}.`
       },
 
       reddit: {
         label: "Reddit",
-        postTitle: (name, year) => `${name} – Reddit Leak Collection ${year}`,
-        metaTitle: (name, year) => `${name} Reddit Leak Collection ${year} – Leaked Content Archive`,
-        metaDesc: (name, year) => `Explore the ${name} Reddit leak collection including archived content and updated packs from ${year}. Visit the full ${name} archive for more.`,
+        postTitle: (name, year) => `${name} – Reddit Leaks ${year}`,
+        metaTitle: (name, year) => `${name} Reddit Leaks – OnlyFans ${year}`,
+        metaDesc: (name, year) =>
+          `Explore ${name} Reddit leaks and leaked content updated for ${year}. Use the hub page for the main mega folder links and latest packs.`,
+
         tags: (preset) => {
           if (preset === "minimal") return TAGS.REDDIT_MINIMAL;
           if (preset === "links")   return TAGS.REDDIT_LINKS;
           return TAGS.REDDIT_DEFAULT;
         },
-        body: (name, year) => `${name} Reddit leak collection (${year}) is listed below, including archived content and shared packs.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`
+        body: (name, year) => `${name} Reddit leaks (${year}) are listed below, including leaked content and shared packs.
+
+Full ${name} Leaks → [PASTE HUB URL HERE]`
       },
 
       ig: {
         label: "IG",
-        postTitle: (name, year) => `${name} – Instagram Archive ${year}`,
-        metaTitle: (name, year) => `${name} Instagram Archive ${year} – Content Collection`,
-        metaDesc: (name, year) => `Browse the ${name} Instagram archive from ${year} including highlights and related content. Visit the full ${name} archive for mega folders and updates.`,
+        postTitle: (name, year) => `${name} – Instagram Leaks ${year}`,
+        metaTitle: (name, year) => `${name} Instagram Leaks – OnlyFans ${year}`,
+        metaDesc: (name, year) =>
+          `Browse ${name} Instagram leaks and related content updated for ${year}. Use the hub page for mega folder links and latest packs.`,
+
         tags: (preset) => {
           if (preset === "links") return TAGS.IG_LINKS;
           return (preset === "minimal") ? TAGS.IG_MINIMAL : TAGS.IG_DEFAULT;
         },
-        body: (name, year) => `${name} Instagram archive (${year}) is available below, including highlights, photos, and related collections.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`
+        body: (name, year) => `${name} Instagram leaks (${year}) are available below, including photos and related collections.
+
+Full ${name} Leaks → [PASTE HUB URL HERE]`
       },
 
       tiktok: {
         label: "TikTok",
-        postTitle: (name, year) => `${name} – TikTok Archive ${year}`,
-        metaTitle: (name, year) => `${name} TikTok Archive ${year} – Clips & Content Collection`,
-        metaDesc: (name, year) => `Explore the ${name} TikTok archive from ${year} including clips and related content. Visit the full ${name} archive for mega folders and updates.`,
+        postTitle: (name, year) => `${name} – TikTok Leaks ${year}`,
+        metaTitle: (name, year) => `${name} TikTok Leaks – OnlyFans ${year}`,
+        metaDesc: (name, year) =>
+          `Explore ${name} TikTok leaks and related content updated for ${year}. Use the hub page for mega folder links and latest packs.`,
+
         tags: (preset) => {
           if (preset === "links") return TAGS.TIKTOK_LINKS;
           return (preset === "minimal") ? TAGS.TIKTOK_MINIMAL : TAGS.TIKTOK_DEFAULT;
         },
-        body: (name, year) => `${name} TikTok archive (${year}) is listed below including clips and related content collections.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`
+        body: (name, year) => `${name} TikTok leaks (${year}) are listed below including clips and related content collections.
+
+Full ${name} Leaks → [PASTE HUB URL HERE]`
       }
     };
 
