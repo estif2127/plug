@@ -10,9 +10,6 @@
       --text:#e5e7eb;
       --muted:#9ca3af;
       --line:#243042;
-      --brand:#60a5fa;
-      --ok:#34d399;
-      --warn:#f59e0b;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 18px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -27,35 +24,11 @@
                   var(--bg);
       color:var(--text);
     }
-    .wrap{
-      max-width: 1100px;
-      margin: 28px auto 70px;
-      padding: 0 16px;
-    }
-    header{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom: 18px;
-    }
-    h1{
-      margin:0;
-      font-size: 22px;
-      letter-spacing:.2px;
-    }
-    .sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-size: 13px;
-      line-height:1.4;
-    }
-    .tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      align-items:center;
-    }
+    .wrap{ max-width: 1100px; margin: 28px auto 70px; padding: 0 16px; }
+    header{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom: 18px; }
+    h1{ margin:0; font-size: 22px; letter-spacing:.2px; }
+    .sub{ margin-top:6px; color:var(--muted); font-size: 13px; line-height:1.4; }
+    .tabs{ display:flex; gap:10px; flex-wrap: wrap; align-items:center; }
     .tab{
       border:1px solid var(--line);
       background: rgba(17,24,39,.65);
@@ -74,14 +47,8 @@
       color: #dbeafe;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width: 980px){
-      .grid{ grid-template-columns: 420px 1fr; }
-    }
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 980px){ .grid{ grid-template-columns: 420px 1fr; } }
     .card{
       background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(15,23,42,.78));
       border: 1px solid var(--line);
@@ -101,12 +68,7 @@
     .card .hd strong{ font-size: 14px; }
     .card .bd{ padding: 14px; }
 
-    label{
-      display:block;
-      font-size: 12px;
-      color: var(--muted);
-      margin: 0 0 6px;
-    }
+    label{ display:block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
     input, textarea, select{
       width:100%;
       background: rgba(2,6,23,.6);
@@ -126,26 +88,12 @@
       line-height: 1.45;
       white-space: pre-wrap;
     }
-    input:focus, textarea:focus, select:focus{
-      border-color: rgba(96,165,250,.7);
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 120px;
-      gap: 10px;
-      align-items:end;
-    }
-    .muted{
-      color: var(--muted);
-      font-size: 12px;
-      line-height:1.4;
-    }
-    .btns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
+    input:focus, textarea:focus, select:focus{ border-color: rgba(96,165,250,.7); }
+
+    .row{ display:grid; grid-template-columns: 1fr 120px; gap: 10px; align-items:end; }
+    .muted{ color: var(--muted); font-size: 12px; line-height:1.4; }
+
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
     button{
       border: 1px solid rgba(36,48,66,.95);
       background: rgba(17,24,39,.6);
@@ -157,25 +105,11 @@
       transition: all .15s ease;
       user-select:none;
     }
-    button:hover{
-      border-color: rgba(96,165,250,.55);
-      transform: translateY(-1px);
-    }
-    button.primary{
-      background: rgba(96,165,250,.18);
-      border-color: rgba(96,165,250,.7);
-      color:#dbeafe;
-    }
-    button.good{
-      background: rgba(52,211,153,.14);
-      border-color: rgba(52,211,153,.6);
-      color:#d1fae5;
-    }
-    button.warn{
-      background: rgba(245,158,11,.12);
-      border-color: rgba(245,158,11,.55);
-      color:#ffedd5;
-    }
+    button:hover{ border-color: rgba(96,165,250,.55); transform: translateY(-1px); }
+    button.primary{ background: rgba(96,165,250,.18); border-color: rgba(96,165,250,.7); color:#dbeafe; }
+    button.good{ background: rgba(52,211,153,.14); border-color: rgba(52,211,153,.6); color:#d1fae5; }
+    button.warn{ background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.55); color:#ffedd5; }
+
     .pill{
       font-size: 11px;
       color: var(--muted);
@@ -186,15 +120,9 @@
       white-space:nowrap;
     }
 
-    .outgrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media(min-width:980px){
-      .outgrid{ grid-template-columns: 1fr 1fr; }
-      .outgrid .span2{ grid-column: span 2; }
-    }
+    .outgrid{ display:grid; grid-template-columns: 1fr; gap: 12px; }
+    @media(min-width:980px){ .outgrid{ grid-template-columns: 1fr 1fr; } .outgrid .span2{ grid-column: span 2; } }
+
     .field{
       background: rgba(2,6,23,.35);
       border:1px solid rgba(36,48,66,.9);
@@ -210,21 +138,11 @@
       border-bottom:1px solid rgba(36,48,66,.85);
       background: rgba(15,23,42,.35);
     }
-    .field .fh .name{
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .field .fh .actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .mini{
-      padding: 7px 10px;
-      font-size: 12px;
-      border-radius: 10px;
-    }
+    .field .fh .name{ font-size: 12px; color: var(--muted); }
+    .field .fh .actions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+
+    .mini{ padding: 7px 10px; font-size: 12px; border-radius: 10px; }
+
     .toast{
       position: fixed;
       left: 50%;
@@ -241,10 +159,8 @@
       pointer-events:none;
       transition: opacity .18s ease, transform .18s ease;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(-6px);
-    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
+
     .recommend{
       margin-top:14px;
       padding: 12px;
@@ -262,8 +178,8 @@
       <div>
         <h1>Hub + Sub Post Generator</h1>
         <div class="sub">
-          Type a model name → generates Title / Body / Meta Title / Meta Description.
-          Use tabs for Hub, Reddit, IG, TikTok sub posts. Copy with one click.
+          Uses your real query modifiers (mega, reddit, leaks, links) for tags.
+          Model-name tags are intentionally avoided.
         </div>
       </div>
       <div class="tabs" id="tabs">
@@ -295,24 +211,20 @@
 
           <div style="height:10px"></div>
 
-          <label>Tag suggestions (content-type only)</label>
+          <label>Tag preset</label>
           <select id="tagPreset">
-            <option value="default">Default (safe)</option>
-            <option value="aggressive">Aggressive (more tags)</option>
-            <option value="minimal">Minimal (1–2 tags)</option>
+            <option value="default">Default (recommended)</option>
+            <option value="minimal">Minimal (2 tags)</option>
+            <option value="links">Links-focused (adds mega-links / folder-links)</option>
           </select>
           <div class="muted" style="margin-top:8px">
-            No model-name tags. Model name should be handled by your Artist/Model field.
+            Tags are content-type only (from your query data). No creator-name tags.
           </div>
 
           <div class="btns">
             <button class="primary" id="generateBtn">Generate</button>
             <button class="warn" id="clearBtn">Clear</button>
             <button class="good" id="copyAllBtn">Copy ALL (Title + Meta + Desc + Body + YouTube)</button>
-          </div>
-
-          <div class="muted" style="margin-top:12px">
-            Tip: For Hub mode, keep the post title clean (just the model name) if your grid shows post titles.
           </div>
         </div>
       </section>
@@ -327,20 +239,16 @@
           <div class="outgrid">
             <div class="field">
               <div class="fh">
-                <div class="name">Post Title (H1 / Grid Title)</div>
-                <div class="actions">
-                  <button class="mini" data-copy="postTitle">Copy</button>
-                </div>
+                <div class="name">Post Title (Grid / H1)</div>
+                <div class="actions"><button class="mini" data-copy="postTitle">Copy</button></div>
               </div>
               <textarea id="postTitle" readonly></textarea>
             </div>
 
             <div class="field">
               <div class="fh">
-                <div class="name">Meta Title (SEO Title)</div>
-                <div class="actions">
-                  <button class="mini" data-copy="metaTitle">Copy</button>
-                </div>
+                <div class="name">Meta Title (SEO)</div>
+                <div class="actions"><button class="mini" data-copy="metaTitle">Copy</button></div>
               </div>
               <textarea id="metaTitle" readonly></textarea>
             </div>
@@ -348,9 +256,7 @@
             <div class="field">
               <div class="fh">
                 <div class="name">Meta Description</div>
-                <div class="actions">
-                  <button class="mini" data-copy="metaDesc">Copy</button>
-                </div>
+                <div class="actions"><button class="mini" data-copy="metaDesc">Copy</button></div>
               </div>
               <textarea id="metaDesc" readonly></textarea>
             </div>
@@ -358,9 +264,7 @@
             <div class="field">
               <div class="fh">
                 <div class="name">Tags (comma-separated)</div>
-                <div class="actions">
-                  <button class="mini" data-copy="tags">Copy</button>
-                </div>
+                <div class="actions"><button class="mini" data-copy="tags">Copy</button></div>
               </div>
               <textarea id="tags" readonly></textarea>
             </div>
@@ -368,9 +272,7 @@
             <div class="field span2">
               <div class="fh">
                 <div class="name">Body (copy/paste)</div>
-                <div class="actions">
-                  <button class="mini" data-copy="body">Copy</button>
-                </div>
+                <div class="actions"><button class="mini" data-copy="body">Copy</button></div>
               </div>
               <textarea id="body" readonly></textarea>
             </div>
@@ -378,17 +280,14 @@
             <div class="field span2">
               <div class="fh">
                 <div class="name">Tutorial Video Embed</div>
-                <div class="actions">
-                  <button class="mini" data-copy="youtubeEmbed">Copy</button>
-                </div>
+                <div class="actions"><button class="mini" data-copy="youtubeEmbed">Copy</button></div>
               </div>
               <textarea id="youtubeEmbed" readonly></textarea>
             </div>
           </div>
 
-          <!-- Shown on the site, NOT included in the copied body -->
           <div class="recommend muted">
-            <strong>Recommended sections to add later (not copied into Body yet):</strong>
+            <strong>Recommended sections to add later (NOT included in Body yet):</strong>
             <div class="bul">
               <b>Download Section</b><br>
               • Main folder link / download button<br><br>
@@ -401,10 +300,6 @@
               <b>Related Models</b><br>
               • 3 related models (random or same niche)
             </div>
-          </div>
-
-          <div class="muted" style="margin-top:10px">
-            Note: YouTube tutorial embed is provided as a separate copy field (not inserted into Body).
           </div>
         </div>
       </section>
@@ -428,8 +323,28 @@
     };
     const cleanName = (s) => (s || "").toString().trim().replace(/\s+/g, " ");
 
-    // Fixed tutorial video embed (copy field)
+    // YouTube embed (separate copy field)
     const YOUTUBE_EMBED = `<iframe width="560" height="315" src="https://www.youtube.com/embed/3hGbw6hm4gw?si=_rZ2rqZ2tWHd1bHT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+
+    // Tags based on your actual query modifiers:
+    // mega / folder / reddit / leak(s) / link(s) / free
+    const TAGS = {
+      HUB_DEFAULT: ["mega-folder", "archive", "leaked-content", "content-pack"],
+      HUB_MINIMAL: ["mega-folder", "archive"],
+      HUB_LINKS:   ["mega-folder", "archive", "mega-links", "folder-links"],
+
+      REDDIT_DEFAULT: ["reddit-leaks", "archive", "leaked-content"],
+      REDDIT_MINIMAL: ["reddit-leaks", "archive"],
+      REDDIT_LINKS:   ["reddit-leaks", "archive", "mega-links"],
+
+      IG_DEFAULT: ["instagram-archive", "archive"],
+      IG_MINIMAL: ["instagram-archive", "archive"],
+      IG_LINKS:   ["instagram-archive", "archive", "folder-links"],
+
+      TIKTOK_DEFAULT: ["tiktok-archive", "archive"],
+      TIKTOK_MINIMAL: ["tiktok-archive", "archive"],
+      TIKTOK_LINKS:   ["tiktok-archive", "archive", "folder-links"]
+    };
 
     const MODES = {
       hub: {
@@ -438,50 +353,42 @@
         metaTitle: (name, year) => `${name} OnlyFans Mega Folder ${year} – Full Archive & Leaked Content`,
         metaDesc: (name) => `Browse the ${name} OnlyFans leaks, mega folder archives, and updated content collections. Access the full ${name} archive and latest downloads.`,
         tags: (preset) => {
-          if (preset === "minimal") return ["archive","mega-folder"];
-          if (preset === "aggressive") return ["archive","mega-folder","2026-update","full-pack"];
-          return ["mega-folder","archive","2026-update"];
+          if (preset === "minimal") return TAGS.HUB_MINIMAL;
+          if (preset === "links")   return TAGS.HUB_LINKS;
+          return TAGS.HUB_DEFAULT;
         },
-        // ONLY the intro copy you approved
-        body: (name, year) => {
-          return `${name} OnlyFans leaks, mega folder archives, and updated content collections are available below. Browse the full ${name} archive and download the latest packs.
+        body: (name, year) => `${name} OnlyFans leaks, mega folder archives, and updated content collections are available below. Browse the full ${name} archive and download the latest packs.
 
-This page includes ${name} mega folders, Reddit leak collections, and additional archived content updated for ${year}.`;
-        }
+This page includes ${name} mega folders, Reddit leak collections, and additional archived content updated for ${year}.`
       },
 
       reddit: {
         label: "Reddit",
         postTitle: (name, year) => `${name} – Reddit Leak Collection ${year}`,
-        metaTitle: (name, year) => `${name} Reddit Leak Collection ${year} – OnlyFans Archive`,
+        metaTitle: (name, year) => `${name} Reddit Leak Collection ${year} – Leaked Content Archive`,
         metaDesc: (name, year) => `Explore the ${name} Reddit leak collection including archived content and updated packs from ${year}. Visit the full ${name} archive for more.`,
         tags: (preset) => {
-          if (preset === "minimal") return ["reddit","archive"];
-          if (preset === "aggressive") return ["reddit","archive","leaks","collection"];
-          return ["reddit","archive"];
+          if (preset === "minimal") return TAGS.REDDIT_MINIMAL;
+          if (preset === "links")   return TAGS.REDDIT_LINKS;
+          return TAGS.REDDIT_DEFAULT;
         },
-        body: (name, year) => {
-          return `${name} Reddit leak collection (${year}) is listed below, including archived content and shared packs.
+        body: (name, year) => `${name} Reddit leak collection (${year}) is listed below, including archived content and shared packs.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`;
-        }
+Full ${name} Archive → [PASTE HUB URL HERE]`
       },
 
       ig: {
         label: "IG",
         postTitle: (name, year) => `${name} – Instagram Archive ${year}`,
-        metaTitle: (name, year) => `${name} Instagram Archive ${year} – OnlyFans Content Collection`,
+        metaTitle: (name, year) => `${name} Instagram Archive ${year} – Content Collection`,
         metaDesc: (name, year) => `Browse the ${name} Instagram archive from ${year} including highlights and related content. Visit the full ${name} archive for mega folders and updates.`,
         tags: (preset) => {
-          if (preset === "minimal") return ["archive","instagram"];
-          if (preset === "aggressive") return ["instagram","archive","highlights","collection"];
-          return ["instagram","archive"];
+          if (preset === "links") return TAGS.IG_LINKS;
+          return (preset === "minimal") ? TAGS.IG_MINIMAL : TAGS.IG_DEFAULT;
         },
-        body: (name, year) => {
-          return `${name} Instagram archive (${year}) is available below, including highlights, photos, and related collections.
+        body: (name, year) => `${name} Instagram archive (${year}) is available below, including highlights, photos, and related collections.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`;
-        }
+Full ${name} Archive → [PASTE HUB URL HERE]`
       },
 
       tiktok: {
@@ -490,15 +397,12 @@ Full ${name} Archive → [PASTE HUB URL HERE]`;
         metaTitle: (name, year) => `${name} TikTok Archive ${year} – Clips & Content Collection`,
         metaDesc: (name, year) => `Explore the ${name} TikTok archive from ${year} including clips and related content. Visit the full ${name} archive for mega folders and updates.`,
         tags: (preset) => {
-          if (preset === "minimal") return ["tiktok","archive"];
-          if (preset === "aggressive") return ["tiktok","archive","clips","collection"];
-          return ["tiktok","archive"];
+          if (preset === "links") return TAGS.TIKTOK_LINKS;
+          return (preset === "minimal") ? TAGS.TIKTOK_MINIMAL : TAGS.TIKTOK_DEFAULT;
         },
-        body: (name, year) => {
-          return `${name} TikTok archive (${year}) is listed below including clips and related content collections.
+        body: (name, year) => `${name} TikTok archive (${year}) is listed below including clips and related content collections.
 
-Full ${name} Archive → [PASTE HUB URL HERE]`;
-        }
+Full ${name} Archive → [PASTE HUB URL HERE]`
       }
     };
 
@@ -506,9 +410,7 @@ Full ${name} Archive → [PASTE HUB URL HERE]`;
 
     const setMode = (mode) => {
       currentMode = mode;
-      document.querySelectorAll(".tab").forEach(t => {
-        t.classList.toggle("active", t.dataset.mode === mode);
-      });
+      document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.mode === mode));
       $("modePill").textContent = `Mode: ${MODES[mode].label}`;
       $("statusPill").textContent = "Ready";
       if (cleanName($("modelName").value)) generate();
@@ -526,7 +428,7 @@ Full ${name} Archive → [PASTE HUB URL HERE]`;
         $("metaDesc").value = "";
         $("tags").value = "";
         $("body").value = "";
-        $("youtubeEmbed").value = YOUTUBE_EMBED; // still provide it
+        $("youtubeEmbed").value = YOUTUBE_EMBED;
         return;
       }
 
@@ -557,6 +459,7 @@ Full ${name} Archive → [PASTE HUB URL HERE]`;
     };
 
     $("generateBtn").addEventListener("click", generate);
+
     $("clearBtn").addEventListener("click", () => {
       $("modelName").value = "";
       $("postTitle").value = "";
@@ -597,12 +500,8 @@ Full ${name} Archive → [PASTE HUB URL HERE]`;
     });
 
     ["modelName","year","tagPreset"].forEach(id => {
-      $(id).addEventListener("input", () => {
-        if (cleanName($("modelName").value)) generate();
-      });
-      $(id).addEventListener("change", () => {
-        if (cleanName($("modelName").value)) generate();
-      });
+      $(id).addEventListener("input", () => { if (cleanName($("modelName").value)) generate(); });
+      $(id).addEventListener("change", () => { if (cleanName($("modelName").value)) generate(); });
     });
 
     // Init
