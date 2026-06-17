@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Model Post Generator</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --line:#243042;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(96,165,250,.25), transparent 55%),
+                  radial-gradient(900px 700px at 80% -20%, rgba(52,211,153,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .wrap{ max-width: 1100px; margin: 28px auto 70px; padding: 0 16px; }
+    header{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom: 18px; }
+    h1{ margin:0; font-size: 22px; letter-spacing:.2px; }
+    .sub{ margin-top:6px; color:var(--muted); font-size: 13px; line-height:1.4; }
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 980px){ .grid{ grid-template-columns: 420px 1fr; } }
+    .card{
+      background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(15,23,42,.78));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding: 14px 14px 10px;
+      border-bottom:1px solid rgba(36,48,66,.9);
+      background: rgba(15,23,42,.35);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .card .hd strong{ font-size: 14px; }
+    .card .bd{ padding: 14px; }
+    label{ display:block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+    input, textarea{
+      width:100%;
+      background: rgba(2,6,23,.6);
+      color: var(--text);
+      border: 1px solid rgba(36,48,66,.9);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 14px;
+      outline:none;
+      transition: border-color .15s ease;
+    }
+    textarea{
+      min-height: 120px;
+      resize: vertical;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    input:focus, textarea:focus{ border-color: rgba(96,165,250,.7); }
+    .row{ display:grid; grid-template-columns: 1fr 120px; gap: 10px; align-items:end; }
+    .muted{ color: var(--muted); font-size: 12px; line-height:1.4; }
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    button{
+      border: 1px solid rgba(36,48,66,.95);
+      background: rgba(17,24,39,.6);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size: 13px;
+      transition: all .15s ease;
+      user-select:none;
+    }
+    button:hover{ border-color: rgba(96,165,250,.55); transform: translateY(-1px); }
+    button.primary{ background: rgba(96,165,250,.18); border-color: rgba(96,165,250,.7); color:#dbeafe; }
+    button.good{ background: rgba(52,211,153,.14); border-color: rgba(52,211,153,.6); color:#d1fae5; }
+    button.warn{ background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.55); color:#ffedd5; }
+    .pill{
+      font-size: 11px;
+      color: var(--muted);
+      border:1px solid rgba(36,48,66,.9);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(2,6,23,.35);
+      white-space:nowrap;
+    }
+    .outgrid{ display:grid; grid-template-columns: 1fr; gap: 12px; }
+    @media(min-width:980px){ .outgrid{ grid-template-columns: 1fr 1fr; } .outgrid .span2{ grid-column: span 2; } }
+    .field{
+      background: rgba(2,6,23,.35);
+      border:1px solid rgba(36,48,66,.9);
+      border-radius: 14px;
+      overflow:hidden;
+    }
+    .field .fh{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-bottom:1px solid rgba(36,48,66,.85);
+      background: rgba(15,23,42,.35);
+    }
+    .field .fh .name{ font-size: 12px; color: var(--muted); }
+    .field .fh .actions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .mini{ padding: 7px 10px; font-size: 12px; border-radius: 10px; }
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(17,24,39,.92);
+      border:1px solid rgba(36,48,66,.95);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Model Post Generator</h1>
+        <div class="sub">One clean version. Generates title, SEO fields, tags, and the YouTube tutorial embed.</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="hd">
+          <strong>Inputs</strong>
+          <span class="pill">Single Version</span>
+        </div>
+        <div class="bd">
+          <div class="row">
+            <div>
+              <label>Model name</label>
+              <input id="modelName" placeholder="kkvsh" autocomplete="off"/>
+            </div>
+            <div>
+              <label>Year</label>
+              <input id="year" placeholder="2026" value="2026" autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="muted" style="margin-top:10px">
+            Tags are generated from the model name.
+          </div>
+
+          <div class="btns">
+            <button class="primary" id="generateBtn">Generate</button>
+            <button class="warn" id="clearBtn">Clear</button>
+            <button class="good" id="copyAllBtn">Copy ALL</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd">
+          <strong>Generated Output</strong>
+          <span class="pill" id="statusPill">Ready</span>
+        </div>
+        <div class="bd">
+          <div class="outgrid">
+            <div class="field">
+              <div class="fh">
+                <div class="name">Post Title (Grid / H1)</div>
+                <div class="actions"><button class="mini" data-copy="postTitle">Copy</button></div>
+              </div>
+              <textarea id="postTitle" readonly></textarea>
+            </div>
+
+            <div class="field">
+              <div class="fh">
+                <div class="name">Meta Title (SEO)</div>
+                <div class="actions"><button class="mini" data-copy="metaTitle">Copy</button></div>
+              </div>
+              <textarea id="metaTitle" readonly></textarea>
+            </div>
+
+            <div class="field">
+              <div class="fh">
+                <div class="name">Meta Description</div>
+                <div class="actions"><button class="mini" data-copy="metaDesc">Copy</button></div>
+              </div>
+              <textarea id="metaDesc" readonly></textarea>
+            </div>
+
+            <div class="field">
+              <div class="fh">
+                <div class="name">Tags (comma-separated)</div>
+                <div class="actions"><button class="mini" data-copy="tags">Copy</button></div>
+              </div>
+              <textarea id="tags" readonly></textarea>
+            </div>
+
+            <div class="field span2">
+              <div class="fh">
+                <div class="name">Tutorial Video Embed</div>
+                <div class="actions"><button class="mini" data-copy="youtubeEmbed">Copy</button></div>
+              </div>
+              <textarea id="youtubeEmbed" readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const toast = (msg) => {
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 1100);
+    };
+
+    const sanitizeYear = (y) => {
+      const n = (y || "").toString().trim();
+      return n && /^[0-9]{4}$/.test(n) ? n : "2026";
+    };
+
+    const cleanName = (s) => (s || "").toString().trim().replace(/\s+/g, " ");
+
+    const YOUTUBE_EMBED = `<iframe width="560" height="315" src="https://www.youtube.com/embed/3hGbw6hm4gw?si=_rZ2rqZ2tWHd1bHT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+
+    const generateTags = (name) => [
+      `${name} leaked`,
+      `${name} leaks`,
+      `${name} TikTok`,
+      `${name} mega`,
+      `${name} ig`,
+      `${name} twitter`,
+	  `${name} porn`,
+    ];
+
+    const generate = () => {
+      const name = cleanName($("modelName").value);
+      const year = sanitizeYear($("year").value);
+
+      if (!name) {
+        $("statusPill").textContent = "Enter a model name";
+        $("postTitle").value = "";
+        $("metaTitle").value = "";
+        $("metaDesc").value = "";
+        $("tags").value = "";
+        $("youtubeEmbed").value = YOUTUBE_EMBED;
+        return;
+      }
+
+      $("postTitle").value = name;
+      $("metaTitle").value = `${name} onlyfans leaked ${year}`;
+      $("metaDesc").value = `Browse ${name} leaks, mega folders, social media content, and updated collections.`;
+      $("tags").value = generateTags(name).join(", ");
+      $("youtubeEmbed").value = YOUTUBE_EMBED;
+      $("statusPill").textContent = "Generated";
+    };
+
+    const copyText = async (text) => {
+      try{
+        await navigator.clipboard.writeText(text);
+        toast("Copied!");
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        toast("Copied!");
+      }
+    };
+
+    $("generateBtn").addEventListener("click", generate);
+
+    $("clearBtn").addEventListener("click", () => {
+      $("modelName").value = "";
+      $("postTitle").value = "";
+      $("metaTitle").value = "";
+      $("metaDesc").value = "";
+      $("tags").value = "";
+      $("youtubeEmbed").value = YOUTUBE_EMBED;
+      $("statusPill").textContent = "Cleared";
+    });
+
+    $("copyAllBtn").addEventListener("click", () => {
+      const all = [
+        `POST TITLE:\n${$("postTitle").value}\n`,
+        `META TITLE:\n${$("metaTitle").value}\n`,
+        `META DESCRIPTION:\n${$("metaDesc").value}\n`,
+        `TAGS:\n${$("tags").value}\n`,
+        `YOUTUBE EMBED:\n${$("youtubeEmbed").value}\n`
+      ].join("\n");
+      if (!all.trim()) return toast("Nothing to copy");
+      copyText(all);
+    });
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-copy]");
+      if (!btn) return;
+      const id = btn.dataset.copy;
+      const el = $(id);
+      if (!el || !el.value) return toast("Nothing to copy");
+      copyText(el.value);
+    });
+
+    ["modelName", "year"].forEach(id => {
+      $(id).addEventListener("input", () => { if (cleanName($("modelName").value)) generate(); });
+      $(id).addEventListener("change", () => { if (cleanName($("modelName").value)) generate(); });
+    });
+
+    $("youtubeEmbed").value = YOUTUBE_EMBED;
+  </script>
+</body>
+</html>
